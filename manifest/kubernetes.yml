@@ -1,0 +1,50 @@
+# MINIKUBE FUNCIONA EN CODESPACE | LOCAL
+# KUBECTL FUNCIONA DIRECTO EN KILLERCODA (SIN MINIKUBE)
+
+# consultar versión de minikube
+minikube version
+
+# consultar si minikube esta en start o stop
+minikube status
+
+# iniciar clúster kubernetes
+minikube start
+
+# ingresar a la carpeta de los manifiestos de kubernetes (manifest)
+cd manifest
+
+# listar namespace
+kubectl get namespace
+kubectl get ns
+
+# crear un namespace "maylin" por comando mediante un archivo: "maylin-jauregui-22-namespace.yml"
+kubectl apply -f maylin-jauregui-22-namespace.yml
+
+# consultar namespace en uso por "default" | LINUX
+kubectl config view --minify | grep namespace
+
+# consultar namespace en uso por "default" | WINDOWS
+kubectl config view --minify | findstr namespace
+
+# cambiar un namespace en uso por "default" a "maylin-jauregui-22-namespace"
+kubectl config set-context --current --namespace=maylin-jauregui-22-namespace
+
+# consultar todos los recursos de un namespace "maylin-jauregui-22-namespace"
+kubectl get all -n maylin-jauregui-22-namespace
+
+# consultar todos los recursos y secret de un namespace "maylin-jauregui-22-namespace"
+kubectl get all,secrets -n maylin-jauregui-22-namespace
+
+
+# listar services del namespace "maylin-jauregui-22-namespace"
+minikube service maylin-jauregui-22-service -n maylin-jauregui-22-namespace
+minikube service list
+
+# probar el microservicio dentro del clúster con curl
+curl http://192.168.49.2:30001/api/ghibli
+curl http://192.168.49.2:30001/v1/api/age-detector/1
+
+# crear un túnel de puerto la máquina local (host) y el clúster de Kubernetes
+kubectl port-forward service/maylin-jauregui-22-service 8085:30001
+
+

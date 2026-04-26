@@ -1,0 +1,6 @@
+# kubectl create namespace maylin-jauregui-22-namespace (COMANDO)
+# kubectl apply -f maylin-jauregui-22-namespace.yml (yml)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maylin-jauregui-22-namespace

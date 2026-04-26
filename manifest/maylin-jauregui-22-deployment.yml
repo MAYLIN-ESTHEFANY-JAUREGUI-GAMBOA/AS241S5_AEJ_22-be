@@ -1,0 +1,23 @@
+# kubectl apply -f maylin-jauregui-22-deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maylin-jauregui-22-deployment
+  namespace: maylin-jauregui-22-namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: maylin-jauregui-22-deployment        # Debe coincidir con las etiquetas del Service
+  template:
+    metadata:
+      labels:
+        app: maylin-jauregui-22-deployment      # Debe coincidir con las etiquetas del Service
+    spec:
+      containers:
+      - name: maylin-jauregui-22-container
+        image: maylinjg/kubernetes-b:1.0   # Reemplaza con tu imagen Docker Hub
+        imagePullPolicy: IfNotPresent        # Evitar traer siempre la última versión si hay una actual
+        envFrom:
+        - secretRef:
+            name: maylin-jauregui-22-secret  # Esto cargará todos los valores como variables de entorno

@@ -4,22 +4,22 @@ spring:
     name: SistemaIAs
   data:
     mongodb:  
-      uri: mongodb+srv://maylinjauregui:oTDesoVuG2nx4AdJ@cluster0.5djyl.mongodb.net/BD_IAs?appName=Cluster0
+      uri: ${MONGODB_URI} 
 
 # Configuración del servidor
 server:
-  port: 8080
+  port: ${PORT} 8085
 
 # Configuración de RapidAPI
 rapidapi:
   chat:
     url: https://chatgpt-42.p.rapidapi.com/chat
-    key: 3204aced1emshc2f6e2f457e41a6p179f64jsn5228ec0ef14b
+    key: 1db400e164msh1e008a7113ead2fp1f3b4cjsn01b2dc50873b
     host: chatgpt-42.p.rapidapi.com
   ghibli:
-    url: https://ai-ghibli-image-generator.p.rapidapi.com/texttoimageghibli
-    key: 4e8255b460msh51338a6d8ba2bcep179502jsnbeebe5f14964
-    host: ai-ghibli-image-generator.p.rapidapi.com
+    url: ${GHIBLI_URL}
+    key: ${GHIBLI_KEY} 
+    host: ${GHIBLI_HOST} 
 
 springdoc:
   api-docs:

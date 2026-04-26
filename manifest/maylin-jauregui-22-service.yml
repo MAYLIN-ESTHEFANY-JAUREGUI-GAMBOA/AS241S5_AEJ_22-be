@@ -1,0 +1,14 @@
+# kubectl apply -f maylin-jauregui-22-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: maylin-jauregui-22-service
+  namespace: maylin-jauregui-22-namespace
+spec:
+  type: NodePort      #30000-32767  # Cambia a LoadBalancer si estás en un entorno de nube
+  ports:
+  - port: 30001       # Puerto que el Service expondrá
+    targetPort: 8085  # Puerto en el contenedor donde tu aplicación escucha
+    nodePort: 30001   # Puerto asignado en el nodo, opcional
+  selector:
+    app: maylin-jauregui-22-deployment  # Debe coincidir con las etiquetas del Deployment
