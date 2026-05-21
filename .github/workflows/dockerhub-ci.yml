@@ -1,0 +1,63 @@
+name: Docker Hub CI/CD
+
+# =========================================================
+# EVENTOS QUE ACTIVAN EL WORKFLOW
+# =========================================================
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - develop
+      - main
+
+  # Ejecutar automáticamente todos los días
+  schedule:
+    - cron: '0 13 * * *'
+
+  # Permite ejecutar manualmente desde GitHub Actions
+  workflow_dispatch:
+
+# =========================================================
+# JOB PRINCIPAL
+# =========================================================
+jobs:
+  dockerhub:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # =====================================================
+      # 1. CLONAR EL REPOSITORIO
+      # =====================================================
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # =====================================================
+      # 2. LOGIN A DOCKER HUB
+      # Usa los secrets configurados en GitHub
+      # =====================================================
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME_MAYLIN }}
+          password: ${{ secrets.DOCKERHUB_TOKEN_MAYLIN }}
+
+      # =====================================================
+      # 3. CONSTRUIR Y SUBIR IMAGEN DOCKER
+      # =====================================================
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+
+          # Tags de la imagen
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME_MAYLIN }}/as241s5_aej_22-be:latest
+            ${{ secrets.DOCKERHUB_USERNAME_MAYLIN }}/as241s5_aej_22-be:${{ github.sha }}
