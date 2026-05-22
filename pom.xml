@@ -27,6 +27,9 @@
     <properties>
         <java.version>17</java.version>
 
+    <!-- FIX VULNERABILIDAD TRIVY -->
+        <snakeyaml.version>2.2</snakeyaml.version>
+
         <!-- seguridad / compatibilidad -->
         <netty.version>4.1.133.Final</netty.version>
         <jackson.version>2.18.6</jackson.version>
