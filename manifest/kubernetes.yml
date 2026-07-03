@@ -40,11 +40,23 @@ kubectl get all,secrets -n maylin-jauregui-22-namespace
 minikube service maylin-jauregui-22-service -n maylin-jauregui-22-namespace
 minikube service list
 
+# Ver los Pods
+kubectl get pods -n maylin-jauregui-22-namespace
+
+# Ver todos los recursos
+kubectl get all -n maylin-jauregui-22-namespace
+
 # probar el microservicio dentro del clúster con curl
 curl http://192.168.49.2:30001/api/ghibli
 curl http://192.168.49.2:30001/v1/api/age-detector/1
 
 # crear un túnel de puerto la máquina local (host) y el clúster de Kubernetes
 kubectl port-forward service/maylin-jauregui-22-service 8085:30001
+
+#Creaciones
+kubectl apply -f maylin-jauregui-22-namespace.yml
+kubectl apply -f maylin-jauregui-22-secret.yml
+kubectl apply -f maylin-jauregui-22-deployment.yml
+kubectl apply -f maylin-jauregui-22-service.yml
 
 
